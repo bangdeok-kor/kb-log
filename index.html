@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kettlebell Snatch Log — Joohyun / Coach Kseniya</title>
+<style>
+  :root{
+    --ink:#12100E; --ink2:#1B1815; --line:#332E28; --amber:#E8A33D; --amber-dim:#8A6320;
+    --paper:#EFE9E0; --mute:#8C8378; --ok:#7FB069; --warn:#D9704A;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans);
+    font-size:15px;line-height:1.5;padding-bottom:100px}
+  .wrap{max-width:760px;margin:0 auto;padding:0 14px}
+  header{border-bottom:1px solid var(--line);padding:20px 0 14px}
+  .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--amber);margin-bottom:7px}
+  h1{margin:0;font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1.15}
+  .sub{color:var(--mute);font-size:12px;margin-top:6px;font-family:var(--mono)}
+  .status{display:flex;align-items:center;gap:8px;margin-top:11px;flex-wrap:wrap}
+  .pill{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+    padding:4px 9px;border-radius:2px;border:1px solid var(--line);color:var(--mute)}
+  .pill.live{border-color:var(--ok);color:var(--ok)}
+  .pill.edit{border-color:var(--amber);color:var(--amber)}
+  .pill.dirty{border-color:var(--warn);color:var(--warn)}
+  .ghostbtn{background:none;border:1px solid var(--line);color:var(--mute);font-family:var(--mono);
+    font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:2px;cursor:pointer}
+  .ghostbtn:hover{border-color:var(--amber);color:var(--amber)}
+  nav{display:flex;gap:6px;position:sticky;top:0;z-index:20;background:var(--ink);
+    padding:10px 0;border-bottom:1px solid var(--line);margin-bottom:14px}
+  nav button{flex:1;background:none;border:1px solid var(--line);color:var(--mute);padding:10px 3px;
+    border-radius:2px;font-family:var(--sans);font-size:12.5px;font-weight:700;cursor:pointer;transition:.15s}
+  nav button .d{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.13em;
+    font-weight:400;margin-top:3px;opacity:.75}
+  nav button[aria-selected="true"]{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+  .place{font-family:var(--mono);font-size:10.5px;color:var(--mute);margin:0 0 14px;
+    letter-spacing:.07em;text-transform:uppercase}
+  .meta{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:20px}
+  .meta label{display:block;background:var(--ink2);border:1px solid var(--line);padding:9px 11px;border-radius:2px}
+  .meta span{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--mute);margin-bottom:5px}
+  .meta input{width:100%;background:none;border:none;color:var(--paper);font-size:16px;
+    font-weight:700;font-family:var(--mono);outline:none;padding:0}
+  .meta input:disabled{opacity:1;-webkit-text-fill-color:var(--paper)}
+  .block{margin-bottom:24px}
+  .bh{padding-bottom:8px;margin-bottom:10px;border-bottom:1px solid var(--line)}
+  .bh h2{margin:0;font-size:12.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+  .bnote{font-size:12.5px;color:var(--mute);margin:-4px 0 12px;padding-left:10px;
+    border-left:2px solid var(--amber-dim)}
+  .ex{background:var(--ink2);border:1px solid var(--line);border-radius:3px;padding:12px 13px;margin-bottom:8px}
+  .ex.note{opacity:.6}
+  .ex.done{border-color:var(--amber-dim);background:#1F1A12}
+  .top{display:flex;align-items:flex-start;gap:11px}
+  .chk{flex:0 0 24px;height:24px;margin-top:1px;border:1.5px solid var(--line);border-radius:2px;
+    background:none;cursor:pointer;color:transparent;font-size:14px;font-weight:800;line-height:1;
+    display:flex;align-items:center;justify-content:center;transition:.12s}
+  .ex.done .chk{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+  .nm{flex:1;min-width:0}
+  .nm b{display:block;font-size:14.5px;font-weight:700;letter-spacing:-.01em}
+  .vid{display:inline-block;background:var(--warn);color:#fff;font-family:var(--mono);font-size:9px;
+    letter-spacing:.1em;padding:2px 5px;border-radius:2px;margin-left:6px;vertical-align:2px;font-weight:700}
+  .rx{flex:0 0 auto;text-align:right}
+  .rx b{display:block;font-family:var(--mono);font-size:13px;color:var(--amber);font-weight:700}
+  .rest{margin-top:3px;background:none;border:1px solid var(--line);color:var(--mute);
+    font-family:var(--mono);font-size:10px;padding:3px 7px;border-radius:2px;cursor:pointer}
+  .rest.live{background:var(--amber);color:var(--ink);border-color:var(--amber);font-weight:700}
+  .rest.zero{background:var(--ok);color:var(--ink);border-color:var(--ok);font-weight:700}
+  .in{display:grid;grid-template-columns:1fr 62px;gap:6px;margin-top:10px}
+  .in input,.memo input{background:var(--ink);border:1px solid var(--line);color:var(--paper);
+    padding:9px 10px;border-radius:2px;font-size:14px;font-family:var(--sans);outline:none;width:100%}
+  .in input:focus,.memo input:focus{border-color:var(--amber)}
+  .in input::placeholder,.memo input::placeholder{color:#5C554C}
+  .in input.rpe{text-align:center;font-family:var(--mono);font-weight:700}
+  .memo{margin-top:6px}
+  .memo input{font-size:13px;padding:8px 10px}
+  input:disabled{opacity:1;-webkit-text-fill-color:var(--paper);border-color:#241F1A}
+  .ro .chk{cursor:default}
+  pre.raw{background:var(--ink2);border:1px solid var(--line);border-radius:3px;padding:14px;
+    font-family:var(--mono);font-size:12px;line-height:1.7;white-space:pre-wrap;color:var(--paper);overflow-x:auto}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:rgba(18,16,14,.96);backdrop-filter:blur(8px);
+    border-top:1px solid var(--line);padding:11px 14px calc(11px + env(safe-area-inset-bottom));z-index:30}
+  .bar .inner{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:10px}
+  .prog{flex:1;min-width:0}
+  .prog .t{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .track{height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+  .fill{height:100%;background:var(--amber);width:0;transition:width .25s}
+  .bar button.act{background:var(--amber);border:none;color:var(--ink);font-weight:800;font-size:13px;
+    padding:12px 15px;border-radius:2px;cursor:pointer;white-space:nowrap;font-family:var(--sans)}
+  .bar button.act:disabled{background:var(--line);color:var(--mute);cursor:default}
+  .bar button.sec{background:none;border:1px solid var(--line);color:var(--paper);font-weight:700;
+    font-size:13px;padding:12px 14px;border-radius:2px;cursor:pointer;white-space:nowrap;font-family:var(--sans)}
+  dialog{background:var(--ink2);color:var(--paper);border:1px solid var(--line);border-radius:4px;
+    max-width:620px;width:calc(100% - 28px);padding:0}
+  dialog::backdrop{background:rgba(0,0,0,.72)}
+  .dh{display:flex;justify-content:space-between;align-items:center;padding:15px 17px;border-bottom:1px solid var(--line)}
+  .dh strong{font-size:15px}
+  .dh button{background:none;border:1px solid var(--line);color:var(--mute);border-radius:2px;
+    padding:6px 11px;cursor:pointer;font-size:12px}
+  .dbody{padding:15px 17px}
+  .dbody p{font-size:13px;color:var(--mute);margin:0 0 11px}
+  textarea,.tokin{width:100%;background:var(--ink);border:1px solid var(--line);color:var(--paper);
+    font-family:var(--mono);font-size:12px;line-height:1.65;padding:12px;border-radius:2px;outline:none}
+  textarea{height:44vh;resize:vertical}
+  .tokin{font-size:13px}
+  .dact{display:flex;gap:8px;margin-top:11px}
+  .dact button{flex:1;background:var(--amber);border:none;color:var(--ink);font-weight:800;
+    padding:12px;border-radius:2px;cursor:pointer;font-size:13.5px}
+  .dact button.ghost{background:none;border:1px solid var(--line);color:var(--paper);font-weight:600}
+  .err{color:var(--warn);font-size:12.5px;margin-top:9px;font-family:var(--mono)}
+  .center{text-align:center;color:var(--mute);padding:70px 20px;font-family:var(--mono);font-size:12.5px}
+  @media(max-width:420px){
+    .top{flex-wrap:wrap}
+    .rx{width:100%;text-align:left;display:flex;align-items:center;gap:9px;padding-left:35px}
+    .rest{margin-top:0}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Coach Kseniya · HMS</div>
+    <h1>Kettlebell Snatch — Training Log</h1>
+    <div class="sub" id="wk">loading…</div>
+    <div class="status">
+      <span class="pill" id="mode">read only</span>
+      <span class="pill" id="synced">—</span>
+      <button class="ghostbtn" id="refresh">refresh</button>
+      <button class="ghostbtn" id="unlock">athlete mode</button>
+    </div>
+  </header>
+  <nav id="nav"></nav>
+  <div id="body"><div class="center">Loading program…</div></div>
+</div>
+
+<div class="bar"><div class="inner">
+  <div class="prog">
+    <div class="t" id="ptext">—</div>
+    <div class="track"><div class="fill" id="pfill"></div></div>
+  </div>
+  <button class="sec" id="rep">Report</button>
+  <button class="act" id="save" disabled>Save</button>
+</div></div>
+
+<dialog id="dlgTok">
+  <div class="dh"><strong>Athlete mode</strong><button data-close>Close</button></div>
+  <div class="dbody">
+    <p>Paste your GitHub fine-grained token (Contents: Read and write). It is stored only in this browser and never committed to the repository.</p>
+    <input class="tokin" id="tok" type="password" placeholder="github_pat_…" autocomplete="off">
+    <div class="err" id="tokErr"></div>
+    <div class="dact">
+      <button id="tokSave">Save token</button>
+      <button class="ghost" id="tokClear">Remove token</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="dlgRep">
+  <div class="dh"><strong>Report</strong><button data-close>Close</button></div>
+  <div class="dbody">
+    <textarea id="out" spellcheck="false"></textarea>
+    <div class="dact">
+      <button id="copy">Copy all</button>
+      <button class="ghost" id="dl">Save .txt</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+/* ============ config: auto-detected from the Pages URL ============ */
+const FALLBACK = { owner: "YOUR_GITHUB_USERNAME", repo: "kb-log", branch: "main" };
+function detect(){
+  const h = location.hostname, p = location.pathname.split('/').filter(Boolean);
+  if(h.endsWith('.github.io') && p.length){
+    return { owner: h.split('.')[0], repo: p[0], branch: FALLBACK.branch };
+  }
+  return FALLBACK;
+}
+const CFG = detect();
+const API = 'https://api.github.com/repos/' + CFG.owner + '/' + CFG.repo + '/contents/';
+
+/* ============ base64 <-> utf8 ============ */
+function b64d(b){
+  const bin = atob(b.replace(/\s/g,''));
+  const arr = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+  return new TextDecoder().decode(arr);
+}
+function b64e(str){
+  const arr = new TextEncoder().encode(str);
+  let bin=''; arr.forEach(c=> bin += String.fromCharCode(c));
+  return btoa(bin);
+}
+
+/* ============ state ============ */
+let TOKEN = localStorage.getItem('kb:token') || '';
+let PRG = null, LOG = {}, LOGSHA = null, LOGPATH = '', cur = 0, dirty = false;
+const $ = id => document.getElementById(id);
+
+function headers(){
+  const h = {'Accept':'application/vnd.github+json'};
+  if(TOKEN) h['Authorization'] = 'Bearer ' + TOKEN;
+  return h;
+}
+async function getFile(path){
+  const r = await fetch(API + path + '?ref=' + CFG.branch + '&t=' + Date.now(), {headers: headers(), cache:'no-store'});
+  if(r.status === 404) return null;
+  if(!r.ok) throw new Error('GET ' + path + ' → ' + r.status);
+  const j = await r.json();
+  return { data: JSON.parse(b64d(j.content)), sha: j.sha };
+}
+async function putFile(path, obj, sha, msg){
+  const body = { message: msg, content: b64e(JSON.stringify(obj, null, 1)), branch: CFG.branch };
+  if(sha) body.sha = sha;
+  const r = await fetch(API + path, {method:'PUT', headers:{...headers(),'Content-Type':'application/json'},
+    body: JSON.stringify(body)});
+  if(!r.ok) throw new Error('PUT → ' + r.status + ' ' + (await r.text()).slice(0,160));
+  return (await r.json()).content.sha;
+}
+
+/* ============ boot ============ */
+async function boot(){
+  try{
+    const p = await getFile('data/program.json');
+    if(!p) throw new Error('data/program.json not found');
+    PRG = p.data;
+    LOGPATH = 'data/log-' + PRG.week.replace(/\./g,'-') + '.json';
+    const l = await getFile(LOGPATH);
+    if(l){ LOG = l.data.entries || {}; LOGSHA = l.sha; setSynced(l.data.updated); }
+    else { LOG = {}; LOGSHA = null; setSynced(''); }
+    const draft = localStorage.getItem('kb:draft:' + PRG.week);
+    if(draft && TOKEN){
+      const d = JSON.parse(draft);
+      if(Object.keys(d).length){ LOG = {...LOG, ...d}; markDirty(true); }
+    }
+    $('wk').textContent = 'Week ' + PRG.week + '  ·  ' + PRG.athlete + ' / coach ' + PRG.coach;
+    buildNav(); draw();
+  }catch(e){
+    $('body').innerHTML = '<div class="center">Could not load.<br><br>' + e.message +
+      '<br><br>Check that the repository is public and data/program.json exists.</div>';
+  }
+  setMode();
+}
+function setSynced(t){
+  $('synced').textContent = t ? ('synced ' + t.slice(0,16).replace('T',' ')) : 'no log yet';
+  $('synced').className = 'pill' + (t ? ' live' : '');
+}
+function setMode(){
+  $('mode').textContent = TOKEN ? 'athlete mode' : 'read only';
+  $('mode').className = 'pill' + (TOKEN ? ' edit' : '');
+  $('unlock').textContent = TOKEN ? 'token' : 'athlete mode';
+  $('save').disabled = !TOKEN || !dirty;
+}
+function markDirty(v){
+  dirty = v;
+  if(v){ $('synced').textContent = 'unsaved changes'; $('synced').className = 'pill dirty'; }
+  $('save').disabled = !TOKEN || !dirty;
+}
+
+/* ============ helpers ============ */
+function g(k,d){ return LOG[k]===undefined ? d : LOG[k]; }
+function s(k,v){
+  LOG[k]=v; markDirty(true);
+  try{ localStorage.setItem('kb:draft:' + PRG.week, JSON.stringify(LOG)); }catch(e){}
+}
+function esc(v){ return String(v).replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+function secsOf(t){
+  let m=0; const mm=t.match(/(\d+)\s*min/), ss=t.match(/(\d+)\s*sec/);
+  if(mm) m+=parseInt(mm[1])*60; if(ss) m+=parseInt(ss[1]); return m;
+}
+let timers={};
+function startRest(btn,total,label){
+  if(timers[btn.dataset.tid]){ clearInterval(timers[btn.dataset.tid]); delete timers[btn.dataset.tid];
+    btn.className='rest'; btn.textContent='rest '+label; return; }
+  let left=total; btn.className='rest live';
+  const tick=()=>{
+    if(left<=0){ clearInterval(timers[btn.dataset.tid]); delete timers[btn.dataset.tid];
+      btn.className='rest zero'; btn.textContent='GO';
+      if(navigator.vibrate) navigator.vibrate([180,90,180]); return; }
+    btn.textContent = Math.floor(left/60)+':'+String(left%60).padStart(2,'0'); left--;
+  };
+  tick(); timers[btn.dataset.tid]=setInterval(tick,1000);
+}
+
+/* ============ render ============ */
+function buildNav(){
+  const nav = $('nav'); nav.innerHTML='';
+  PRG.days.forEach((d,i)=>{
+    const b=document.createElement('button');
+    b.innerHTML = d.day + '<span class="d">' + d.date + ' · ' + d.est + 'M</span>';
+    b.onclick=()=>{cur=i;draw();};
+    nav.appendChild(b);
+  });
+  const b=document.createElement('button');
+  b.innerHTML = 'PLAN<span class="d">from coach</span>';
+  b.onclick=()=>{cur=-1;draw();};
+  nav.appendChild(b);
+}
+
+function draw(){
+  const kids=[...$('nav').children];
+  kids.forEach((b,i)=> b.setAttribute('aria-selected', (cur===-1 ? i===kids.length-1 : i===cur)));
+  const host = $('body');
+  const ro = !TOKEN;
+
+  if(cur === -1){
+    host.innerHTML = '<div class="place">Coach message · week ' + PRG.week + '</div>' +
+      (PRG.note ? '<p class="bnote">' + esc(PRG.note) + '</p>' : '') +
+      '<pre class="raw">' + esc(PRG.raw || '(no text)') + '</pre>';
+    $('ptext').textContent = 'Program from coach';
+    $('pfill').style.width = '0%';
+    return;
+  }
+
+  const d = PRG.days[cur];
+  let html = '<div class="place">' + d.day_name + ' — ' + d.place + '</div><div class="meta">';
+  [['sleep','Sleep last night (h)','6'],['dur','Actual duration (min)','90'],
+   ['grip','Grip condition 1–10','7'],['palm','Palm skin 1–10','7']].forEach(([f,lab,ph])=>{
+    html += '<label><span>'+lab+'</span><input id="m-'+f+'" value="'+esc(g(d.day+':'+f,''))+
+            '" placeholder="'+ph+'"'+(ro?' disabled':'')+'></label>';
+  });
+  html += '</div><div id="blocks"></div>';
+  host.innerHTML = html;
+
+  ['sleep','dur','grip','palm'].forEach(f=>{
+    const el=$('m-'+f); if(el && !ro) el.oninput=()=>s(d.day+':'+f, el.value);
+  });
+
+  const blocks = $('blocks');
+  d.blocks.forEach((blk,bi)=>{
+    const sec=document.createElement('section'); sec.className='block';
+    sec.innerHTML='<div class="bh"><h2>'+esc(blk.name)+'</h2></div>'+
+      (blk.note?'<p class="bnote">'+esc(blk.note)+'</p>':'');
+    blk.items.forEach((it,ii)=>{
+      const id=d.day+':'+bi+':'+ii, isNote=it.type==='note', done=g(id+':done',false);
+      const div=document.createElement('div');
+      div.className='ex'+(isNote?' note':'')+(done?' done':'')+(ro?' ro':'');
+      div.innerHTML='<div class="top"><button class="chk" aria-label="done">✓</button>'+
+        '<div class="nm"><b>'+esc(it.en)+(it.video?'<span class="vid">VIDEO</span>':'')+'</b></div>'+
+        '<div class="rx"><b>'+esc(it.rx)+'</b></div></div>'+
+        (isNote?'':'<div class="in">'+
+          '<input class="act" placeholder="actual weight / reps" value="'+esc(g(id+':act',''))+'"'+(ro?' disabled':'')+'>'+
+          '<input class="rpe" inputmode="numeric" placeholder="RPE" value="'+esc(g(id+':rpe',''))+'"'+(ro?' disabled':'')+'></div>'+
+          '<div class="memo"><input class="mm" placeholder="note (pain, feel, technique)" value="'+esc(g(id+':memo',''))+'"'+(ro?' disabled':'')+'></div>');
+      if(!ro){
+        div.querySelector('.chk').onclick=()=>{const v=!g(id+':done',false); s(id+':done',v);
+          div.classList.toggle('done',v); tally();};
+        if(!isNote){
+          div.querySelector('.act').oninput=e=>s(id+':act',e.target.value);
+          div.querySelector('.rpe').oninput=e=>s(id+':rpe',e.target.value);
+          div.querySelector('.mm').oninput=e=>s(id+':memo',e.target.value);
+        }
+      }
+      const rs=secsOf(it.rest);
+      if(rs>0){
+        const rb=document.createElement('button');
+        rb.className='rest'; rb.dataset.tid=id; rb.textContent='rest '+it.rest;
+        rb.onclick=()=>startRest(rb,rs,it.rest);
+        div.querySelector('.rx').appendChild(rb);
+      }
+      sec.appendChild(div);
+    });
+    blocks.appendChild(sec);
+  });
+  tally();
+}
+
+function counts(d){
+  let tot=0,done=0;
+  d.blocks.forEach((b,bi)=>b.items.forEach((it,ii)=>{
+    if(it.type==='note') return; tot++;
+    if(g(d.day+':'+bi+':'+ii+':done',false)) done++;
+  }));
+  return [done,tot];
+}
+function tally(){
+  if(cur===-1) return;
+  const d=PRG.days[cur], [done,tot]=counts(d);
+  $('ptext').textContent = d.day + ' — ' + done + ' / ' + tot + ' done';
+  $('pfill').style.width = (tot?done/tot*100:0)+'%';
+}
+
+/* ============ save ============ */
+$('save').onclick = async ()=>{
+  const btn = $('save'); btn.disabled = true; btn.textContent='Saving…';
+  try{
+    const payload = { week: PRG.week, updated: new Date().toISOString(), entries: LOG };
+    LOGSHA = await putFile(LOGPATH, payload, LOGSHA, 'log: ' + PRG.week + ' update');
+    localStorage.removeItem('kb:draft:' + PRG.week);
+    markDirty(false); setSynced(payload.updated);
+    btn.textContent='Saved';
+  }catch(e){
+    btn.textContent='Failed';
+    alert('Save failed.\n\n' + e.message + '\n\nCheck the token permissions (Contents: Read and write).');
+  }
+  setTimeout(()=>{ btn.textContent='Save'; setMode(); }, 1500);
+};
+$('refresh').onclick = ()=>{
+  if(dirty && !confirm('You have unsaved changes. Reload anyway?')) return;
+  localStorage.removeItem('kb:draft:' + (PRG?PRG.week:''));
+  location.reload();
+};
+
+/* ============ token ============ */
+$('unlock').onclick = ()=>{ $('tok').value = TOKEN; $('tokErr').textContent=''; $('dlgTok').showModal(); };
+$('tokSave').onclick = async ()=>{
+  const v = $('tok').value.trim();
+  if(!v){ $('tokErr').textContent='Enter a token.'; return; }
+  $('tokErr').textContent='Checking…';
+  try{
+    const r = await fetch('https://api.github.com/repos/' + CFG.owner + '/' + CFG.repo,
+      {headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+v}});
+    if(!r.ok) throw new Error('status ' + r.status);
+    TOKEN = v; localStorage.setItem('kb:token', v);
+    $('dlgTok').close(); setMode(); draw();
+  }catch(e){ $('tokErr').textContent = 'Token rejected (' + e.message + ').'; }
+};
+$('tokClear').onclick = ()=>{
+  TOKEN=''; localStorage.removeItem('kb:token'); $('dlgTok').close(); setMode(); draw();
+};
+document.querySelectorAll('[data-close]').forEach(b=> b.onclick = ()=> b.closest('dialog').close());
+
+/* ============ report ============ */
+function report(){
+  const L=[];
+  L.push('KETTLEBELL TRAINING REPORT');
+  L.push('Athlete: ' + PRG.athlete + '  |  Week ' + PRG.week);
+  L.push('='.repeat(46));
+  PRG.days.forEach(d=>{
+    const [done,tot]=counts(d);
+    L.push(''); L.push(d.day+' '+d.date+'  ('+d.place+')'); L.push('-'.repeat(46));
+    L.push('Planned '+d.est+' min / Actual '+(g(d.day+':dur','')||'—')+' min   |   Completed '+done+'/'+tot);
+    L.push('Sleep '+(g(d.day+':sleep','')||'—')+' h  |  Grip '+(g(d.day+':grip','')||'—')+
+           '/10  |  Palm skin '+(g(d.day+':palm','')||'—')+'/10');
+    d.blocks.forEach((b,bi)=>{
+      const rows=[];
+      b.items.forEach((it,ii)=>{
+        if(it.type==='note') return;
+        const id=d.day+':'+bi+':'+ii;
+        const dn=g(id+':done',false), act=g(id+':act',''), rp=g(id+':rpe',''), mo=g(id+':memo','');
+        if(!dn && !act && !rp && !mo) return;
+        let t='  '+(dn?'[x] ':'[ ] ')+it.en+' — '+it.rx;
+        if(act) t+='  >> '+act;
+        if(rp) t+='  (RPE '+rp+')';
+        rows.push(t);
+        if(mo) rows.push('       note: '+mo);
+      });
+      if(rows.length){ L.push(''); L.push(' '+b.name.toUpperCase()); rows.forEach(r=>L.push(r)); }
+    });
+  });
+  L.push(''); L.push('='.repeat(46));
+  L.push('Live log: ' + location.href.split('?')[0]);
+  return L.join('\n');
+}
+$('rep').onclick = ()=>{ if(!PRG) return; $('out').value = report(); $('dlgRep').showModal(); };
+$('copy').onclick = async ()=>{
+  const b=$('copy');
+  try{ await navigator.clipboard.writeText($('out').value); }
+  catch(e){ $('out').select(); document.execCommand('copy'); }
+  b.textContent='Copied'; setTimeout(()=>b.textContent='Copy all',1600);
+};
+$('dl').onclick = ()=>{
+  const blob=new Blob([$('out').value],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='kb_report_'+PRG.week.replace(/\./g,'-')+'.txt';
+  a.click();
+};
+window.addEventListener('beforeunload', e=>{ if(dirty){ e.preventDefault(); e.returnValue=''; } });
+
+boot();
+</script>
+</body>
+</html>
